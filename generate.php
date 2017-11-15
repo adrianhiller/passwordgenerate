@@ -17,12 +17,13 @@ foreach( $T as $r => $t )
 
 $passwordchar = [];
 
-foreach ($allowedchar as $char) {
-	array_push($passwordchar,$char[mt_rand(0,sizeof($char)-1)]);
-	array_push($passwordchar,$char[mt_rand(0,sizeof($char)-1)]);
+foreach ($allowedchar as $key => $char) {
+	for ($i=0; $i<=$$key; $i++) {
+		array_push($passwordchar,$char[mt_rand(0,sizeof($char)-1)]);
+	}
 }
 
-$order = uniquerandom(8,0,7);
+$order = uniquerandom($total, 0, $total-1);
 
 if (isset($_GET['d'])) {
 	print_r($order);
@@ -31,16 +32,10 @@ if (isset($_GET['d'])) {
 	echo "<br><br>";
 }
 
-
-echo "Das generierte Passwort lautet: <pre>";
 $pw = "";
 foreach ($order as $i) {
-	echo chr($passwordchar[$i]) . " ";
 	$pw .= chr($passwordchar[$i]);
 }
-echo "</pre>";
-
 $hash = md5($pw);
-echo "Der zugehörige Hash-Wert ist: <pre>" . $hash . "</pre>";
 
 ?>

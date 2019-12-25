@@ -20,13 +20,11 @@ $allowedchar=[
 
 
 
- 
+
 foreach ($asciisections as $section) {
 	for ($i=$section[0]; $i<=$section[1];$i++) {
 		array_push($allowedchar[$section[2]], $i);
 	}
 }
-
-
 
 ?>

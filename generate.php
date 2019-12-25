@@ -11,31 +11,36 @@ while( sizeof( $T ) < $n )
 
 foreach( $T as $r => $t )
    $R[] = $r;
-   
+
    return $R;
 }
 
-$passwordchar = [];
+function generate() {
+	global $allowedchar, $order, $number, $letter, $capital, $special, $total, $passwordchar, $hash;
+	$passwordchar = [];
 
-foreach ($allowedchar as $key => $char) {
-	for ($i=0; $i<=$$key; $i++) {
-		array_push($passwordchar,$char[mt_rand(0,sizeof($char)-1)]);
+	foreach ($allowedchar as $key => $char) {
+		for ($i=0; $i<$$key; $i++) {
+			array_push($passwordchar,$char[mt_rand(0,sizeof($char)-1)]);
+		}
 	}
-}
 
-$order = uniquerandom($total, 0, $total-1);
+	$order = uniquerandom($total, 0, $total-1);
 
-if (isset($_GET['d'])) {
-	print_r($order);
-	echo "<br>";
-	print_r($passwordchar);
-	echo "<br><br>";
-}
+	if (isset($_GET['d'])) {
+		print_r($order);
+		echo "<br>";
+		print_r($passwordchar);
+		echo "<br><br>";
+	}
 
-$pw = "";
-foreach ($order as $i) {
-	$pw .= chr($passwordchar[$i]);
+	$pw = "";
+	foreach ($order as $i) {
+		$pw .= chr($passwordchar[$i]);
+	}
+	$hash = md5($pw);
+
+	// print_r($passwordchar);
 }
-$hash = md5($pw);
 
 ?>
